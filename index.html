@@ -3,877 +3,819 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameVault - Digital Game Store</title>
+    <title>Habibis Shop - Your Digital Marketplace</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        },
+                        secondary: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f9a8d4',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                            950: '#500724',
+                        },
+                        dark: {
+                            100: '#1e2028',
+                            200: '#171923',
+                            300: '#0f1117',
+                            400: '#0a0c10',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 10px 20px rgba(0, 0, 0, 0.3)',
+                        'glow': '0 0 15px rgba(126, 34, 206, 0.3)',
+                        'button': '0 4px 15px rgba(126, 34, 206, 0.3)',
+                    },
+                    width: {
+                        'card': '244px',
+                    },
+                    height: {
+                        'card': '244px',
+                    },
+                    backgroundImage: {
+                        'gradient-primary': 'linear-gradient(135deg, #7c3aed, #ec4899)',
+                        'gradient-secondary': 'linear-gradient(135deg, #3b82f6, #10b981)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Custom CSS with enhanced styling and animations */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1f2937;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #8b5cf6;
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #7c3aed;
-        }
-
-        /* Base Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-        h1, h2, h3, .game-title {
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        
+        /* Custom animations and effects that are hard to achieve with pure Tailwind */
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(126, 34, 206, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(126, 34, 206, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(126, 34, 206, 0);
+            }
         }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        @keyframes glowing {
-            0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.8); }
-            100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.5); }
+        
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            20% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
         }
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out;
         }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+        
+        .animate-pulse-custom {
+            animation: pulse 2s infinite;
         }
-        @keyframes rotateIn {
-            from { transform: rotate(-10deg); opacity: 0; }
-            to { transform: rotate(0); opacity: 1; }
-        }
-
-        /* Hero Section */
-        .hero-section {
+        
+        .btn-shine {
             position: relative;
             overflow: hidden;
-            height: 100vh;
-            min-height: 600px;
         }
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transform: scale(1.1);
-            transition: transform 0.5s ease-out;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            animation: fadeIn 1s ease-out;
-        }
-        .hero-title {
-            font-size: 4rem;
-            line-height: 1.1;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            animation: slideInLeft 1s ease-out;
-        }
-        .hero-subtitle {
-            animation: slideInRight 1.2s ease-out;
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(17, 24, 39, 0.8) 50%, rgba(17, 24, 39, 0.6) 100%);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        .particle {
-            position: absolute;
-            display: block;
-            background-color: rgba(139, 92, 246, 0.7);
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            animation: float 3s infinite ease-in-out;
-        }
-        .hero-cta {
-            animation: pulse 2s infinite ease-in-out;
-        }
-        .hero-badge {
-            position: relative;
-            overflow: hidden;
-            animation: glowing 2s infinite;
-        }
-        .hero-badge::before {
+        
+        .btn-shine::after {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transform: rotate(45deg);
-            animation: shine 3s infinite;
+            transition: all 0.5s ease;
         }
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        /* Game Cards */
-        .game-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-        .game-card:hover::before {
-            transform: scaleX(1);
-        }
-        .game-card img {
-            transition: transform 0.5s ease;
-        }
-        .game-card:hover img {
-            transform: scale(1.1);
-        }
-        .game-card .game-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(17, 24, 39, 0.9), transparent);
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        .game-card:hover .game-overlay {
-            transform: translateY(0);
-        }
-        .game-card .cart-btn {
-            transition: all 0.3s ease;
-        }
-        .game-card:hover .cart-btn {
-            background-color: #7c3aed;
-            transform: rotate(360deg);
-        }
-
-        /* Section Headings */
-        .section-heading {
-            position: relative;
-            display: inline-block;
-        }
-        .section-heading::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            margin-top: 8px;
-            transition: width 0.3s ease;
-        }
-        .section-heading:hover::after {
-            width: 100%;
-        }
-
-        /* Category Cards */
-        .category-card {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .category-card:hover {
-            transform: translateY(-5px);
-        }
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 0;
-        }
-        .category-card:hover::before {
-            opacity: 1;
-        }
-        .category-card i, .category-card h3 {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-        .category-card:hover i {
-            transform: scale(1.2);
-        }
-
-        /* Buttons */
-        .btn-primary {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-            transition: left 0.3s ease;
-        }
-        .btn-primary:hover::before {
+        
+        .btn-shine:hover::after {
             left: 100%;
         }
-
-        /* Mobile Menu */
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: none;
-                animation: fadeIn 0.3s ease-out;
+        
+        .bg-pattern {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(126, 34, 206, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 50%, rgba(236, 72, 153, 0.03) 0%, transparent 25%),
+                radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 20%);
+        }
+        
+        @media (max-width: 640px) {
+            .product-card {
+                width: 100%;
+                height: auto;
+                min-height: 200px;
             }
-            .mobile-menu.active {
-                display: flex;
-            }
-            .hero-title {
-                font-size: 2.5rem;
+            
+            .product-image-container {
+                height: 150px;
             }
         }
-
-        /* Scroll Animation */
-        .scroll-animation {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .scroll-animation.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Footer Animation */
-        .footer-link {
-            position: relative;
-        }
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: #8b5cf6;
-            transition: width 0.3s ease;
-        }
-        .footer-link:hover::after {
-            width: 100%;
+        
+        @media (min-width: 641px) {
+            .product-card {
+                width: 244px;
+                height: 244px;
+            }
+            
+            .product-image-container {
+                height: 180px;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
-    <!-- Navbar -->
-    <nav class="bg-gray-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <span class="text-purple-500 font-bold text-2xl">Game<span class="text-white">Vault</span></span>
-                    </div>
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="#" class="text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Home</a>
-                            <a href="#" class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white">Games</a>
-                            <a href="#" class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white">Software</a>
-                            <a href="#" class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white">Deals</a>
-                            <a href="#about" class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white">About Us</a>
-                        </div>
+<body class="bg-dark-300 text-white font-sans bg-pattern">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-dark-400/95 backdrop-blur-md border-b border-primary-600/20 shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-wrap justify-between items-center">
+                <a href="#" class="text-2xl font-bold font-orbitron">Habibis<span class="bg-gradient-primary bg-clip-text text-transparent">Shop</span></a>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-white hover:text-primary-600 transition-all duration-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="#" class="hidden sm:inline-block px-4 py-2 border border-primary-600/50 rounded-lg text-white hover:text-primary-600 hover:border-primary-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-button">
+                        Product Request
+                    </a>
+                    
+                    <a href="#" class="px-4 py-2 bg-gradient-primary rounded-lg text-white font-medium shadow-button transition-all duration-300 hover:-translate-y-1 hover:shadow-lg btn-shine">
+                        Login
+                    </a>
+                </div>
+                
+                <!-- Mobile Navigation -->
+                <div id="mobile-menu" class="hidden w-full mt-4 py-4 border-t border-primary-600/20">
+                    <div class="flex flex-col gap-3">
+                        <a href="#" class="px-4 py-2 border border-primary-600/50 rounded-lg text-white hover:text-primary-600 hover:border-primary-600 transition-all duration-300 text-center">
+                            Product Request
+                        </a>
+                        
+                        <a href="#" class="px-4 py-2 bg-gradient-primary rounded-lg text-white font-medium shadow-button transition-all duration-300 text-center">
+                            Login
+                        </a>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <button class="bg-purple-600 p-2 rounded-full text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-all duration-300 hover:scale-110">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="ml-1 hidden md:inline-block">Cart (0)</span>
-                        </button>
-                    </div>
-                    <div class="ml-4 md:hidden">
-                        <button id="mobile-menu-button" class="text-gray-400 hover:text-white focus:outline-none">
-                            <i class="fas fa-bars text-xl"></i>
-                        </button>
+                
+                <!-- Search Bar - Full width on mobile, inline on desktop -->
+                <div class="w-full mt-4 md:mt-0 md:w-auto md:flex-1 md:max-w-md md:mx-5 relative order-3">
+                    <div class="relative w-full">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-primary-600"></i>
+                        <input type="text" placeholder="Search for games, software..." 
+                               class="w-full py-3 pl-10 pr-4 rounded-full border border-primary-600/30 bg-dark-100/80 text-white focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20 transition-all duration-300 shadow-sm">
                     </div>
                 </div>
-            </div>
-            <!-- Mobile menu -->
-            <div id="mobile-menu" class="mobile-menu flex-col md:hidden">
-                <a href="#" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Home</a>
-                <a href="#" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 hover:text-white">Games</a>
-                <a href="#" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 hover:text-white">Software</a>
-                <a href="#" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 hover:text-white">Deals</a>
-                <a href="#about" class="text-gray-300 block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700 hover:text-white">About Us</a>
             </div>
         </div>
-    </nav>
-
-    <!-- Hero Section - Redesigned with animations -->
-    <section class="hero-section">
-        <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
-        <div class="hero-gradient"></div>
-        
-        <!-- Animated particles -->
-        <div class="hero-particles" id="particles"></div>
-        
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-            <div class="hero-content max-w-lg">
-                <h1 class="hero-title text-white mb-2">Cyber<span class="text-purple-500">punk</span> 2078</h1>
-                <div class="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mb-6"></div>
-                <p class="hero-subtitle text-lg text-gray-300 mb-8">The future is now. Experience the next generation of open-world adventure in a dystopian metropolis.</p>
-                
-                <div class="flex flex-wrap gap-4">
-                    <span class="hero-badge inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-2 rounded-md font-bold transform rotate-3">-30% OFF</span>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 mt-2">
-                        <button class="hero-cta btn-primary bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-md transition duration-300 flex items-center group">
-                            <i class="fas fa-shopping-cart mr-2 group-hover:animate-bounce"></i> Add to Cart
-                        </button>
-                        <button class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-md transition duration-300 relative overflow-hidden">
-                            <span class="relative z-10">Learn More</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Game features -->
-                <div class="mt-12 grid grid-cols-3 gap-4">
-                    <div class="text-center" style="animation: fadeIn 1s ease-out 0.3s both;">
-                        <i class="fas fa-vr-cardboard text-purple-500 text-2xl mb-2"></i>
-                        <p class="text-xs text-gray-400">VR Support</p>
-                    </div>
-                    <div class="text-center" style="animation: fadeIn 1s ease-out 0.6s both;">
-                        <i class="fas fa-users text-purple-500 text-2xl mb-2"></i>
-                        <p class="text-xs text-gray-400">Multiplayer</p>
-                    </div>
-                    <div class="text-center" style="animation: fadeIn 1s ease-out 0.9s both;">
-                        <i class="fas fa-globe text-purple-500 text-2xl mb-2"></i>
-                        <p class="text-xs text-gray-400">Open World</p>
-                    </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-4">
+        <!-- Hero Section -->
+        <section class="relative h-[450px] mt-8 mb-12 rounded-xl overflow-hidden border border-primary-600/20 shadow-card">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                 alt="Game Banner" 
+                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                 
+            <div class="absolute inset-0 bg-gradient-to-r from-dark-400/90 via-dark-400/70 to-dark-400/40 flex items-center">
+                <div class="px-12 max-w-xl animate-fadeInUp">
+                    <h1 class="text-4xl md:text-5xl font-bold font-orbitron mb-2 text-[#ff7e5f] drop-shadow-lg">NOW AVAILABLE</h1>
+                    <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mb-6"></div>
+                    <h2 class="text-2xl md:text-3xl font-orbitron mb-8 text-[#feb47b] drop-shadow-md">VALORANT GLOBAL</h2>
+                    <a href="#" class="px-6 py-3 bg-gradient-primary rounded-lg text-white font-bold shadow-button transition-all duration-300 hover:-translate-y-1 hover:shadow-lg btn-shine">
+                        PURCHASE
+                    </a>
                 </div>
             </div>
             
-            <!-- Floating game box -->
-            <div class="hidden lg:block absolute right-20 top-1/2 transform -translate-y-1/2" style="animation: float 6s infinite ease-in-out;">
-                <div class="relative">
-                    <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-                    <div class="relative bg-gray-800 p-2 rounded-lg">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Game Box" class="w-64 h-80 object-cover rounded shadow-lg">
-                        <div class="absolute bottom-4 left-4 right-4 bg-gray-900 bg-opacity-80 p-3 rounded">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="text-sm text-gray-300">Release Date</p>
-                                    <p class="font-bold">12.10.2025</p>
-                                </div>
-                                <div class="text-yellow-500">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="absolute bottom-5 right-5 flex gap-2">
+                <img src="https://flagcdn.com/w40/bd.png" alt="Bangladesh" class="w-8 h-5 rounded object-cover shadow-md transition-transform duration-300 hover:-translate-y-1">
+                <img src="https://flagcdn.com/w40/us.png" alt="USA" class="w-8 h-5 rounded object-cover shadow-md transition-transform duration-300 hover:-translate-y-1">
+                <img src="https://flagcdn.com/w40/gb.png" alt="UK" class="w-8 h-5 rounded object-cover shadow-md transition-transform duration-300 hover:-translate-y-1">
+                <img src="https://flagcdn.com/w40/my.png" alt="Malaysia" class="w-8 h-5 rounded object-cover shadow-md transition-transform duration-300 hover:-translate-y-1">
             </div>
-        </div>
+        </section>
         
-        <!-- Scroll down indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center">
-            <p class="text-sm text-gray-400 mb-2">Scroll to explore</p>
-            <div class="animate-bounce">
-                <i class="fas fa-chevron-down text-purple-500"></i>
+        <!-- Subscription Section -->
+        <section class="my-12">
+            <div class="flex justify-between items-center mb-8 pb-2 border-b border-primary-600/30 relative">
+                <h2 class="text-2xl font-orbitron font-semibold relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-10 after:h-[3px] after:bg-gradient-primary after:rounded-md hover:after:w-full after:transition-all after:duration-300">
+                    Subscription
+                </h2>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="px-4 py-2 border border-primary-600/50 rounded-lg text-white hover:text-primary-600 hover:border-primary-600 transition-all duration-300 text-sm">
+                        All
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Weekly Top Games -->
-    <section class="py-16 bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-12 section-heading scroll-animation">Weekly Top Games</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Game Card 1 -->
-                <div class="game-card bg-gray-700 rounded-lg overflow-hidden scroll-animation" style="animation-delay: 0.1s">
-                    <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game 1" class="w-full h-48 object-cover">
-                        <div class="game-overlay">
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md w-full transition duration-300">
-                                View Details
-                            </button>
-                        </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+                <!-- Product 1 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 left-3 z-10 bg-gradient-primary text-white text-xs font-medium px-2 py-1 rounded shadow-lg animate-pulse-custom">
+                        Sale!
                     </div>
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -25%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/BB" alt="Telegram Premium" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
                     <div class="p-4">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold game-title">Stellar Odyssey</h3>
-                            <span class="bg-green-600 text-white text-xs px-2 py-1 rounded">-25%</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-gray-400 line-through">$59.99</span>
-                                <span class="text-white font-bold ml-2">$44.99</span>
-                            </div>
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full cart-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            1899 - 4599 BDT
                         </div>
                     </div>
                 </div>
-
-                <!-- Game Card 2 -->
-                <div class="game-card bg-gray-700 rounded-lg overflow-hidden scroll-animation" style="animation-delay: 0.2s">
-                    <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game 2" class="w-full h-48 object-cover">
-                        <div class="game-overlay">
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md w-full transition duration-300">
-                                View Details
-                            </button>
-                        </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -10%
                     </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/DDVVTT66" alt="Duolingo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
                     <div class="p-4">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold game-title">Racing Legends</h3>
-                            <span class="bg-green-600 text-white text-xs px-2 py-1 rounded">-15%</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-gray-400 line-through">$49.99</span>
-                                <span class="text-white font-bold ml-2">$42.49</span>
-                            </div>
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full cart-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            399 - 399 BDT
                         </div>
                     </div>
                 </div>
-
-                <!-- Game Card 3 -->
-                <div class="game-card bg-gray-700 rounded-lg overflow-hidden scroll-animation" style="animation-delay: 0.3s">
-                    <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game 3" class="w-full h-48 object-cover">
-                        <div class="game-overlay">
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md w-full transition duration-300">
-                                View Details
-                            </button>
-                        </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 left-3 z-10 bg-gradient-primary text-white text-xs font-medium px-2 py-1 rounded shadow-lg animate-pulse-custom">
+                        Sale!
                     </div>
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -30%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/MLBB" alt="Zenless Zone Zero" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
                     <div class="p-4">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold game-title">Fantasy Quest</h3>
-                            <span class="bg-green-600 text-white text-xs px-2 py-1 rounded">-40%</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-gray-400 line-through">$39.99</span>
-                                <span class="text-white font-bold ml-2">$23.99</span>
-                            </div>
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full cart-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            170 - 9999 BDT
                         </div>
                     </div>
                 </div>
-
-                <!-- Game Card 4 -->
-                <div class="game-card bg-gray-700 rounded-lg overflow-hidden scroll-animation" style="animation-delay: 0.4s">
-                    <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Game 4" class="w-full h-48 object-cover">
-                        <div class="game-overlay">
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md w-full transition duration-300">
-                                View Details
-                            </button>
-                        </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/Discord" alt="Try Hack Me" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
+                    
                     <div class="p-4">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold game-title">Cyber Warfare</h3>
-                            <span class="bg-green-600 text-white text-xs px-2 py-1 rounded">-20%</span>
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            1499 - 3999 BDT
                         </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-gray-400 line-through">$59.99</span>
-                                <span class="text-white font-bold ml-2">$47.99</span>
-                            </div>
-                            <button class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full cart-btn">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -15%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/steamtopup" alt="LinkedIn" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            4999 - 5300 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/vvbtt55" alt="Discord Nitro" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            499 - 1250 BDT
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Featured Games Section -->
-    <section class="py-16 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-12 section-heading scroll-animation">Featured Games</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Featured Game 1 -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden flex flex-col md:flex-row scroll-animation">
-                    <div class="md:w-2/5 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Featured Game 1" class="w-full h-48 md:h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
+        </section>
+        
+        <!-- Games Section -->
+        <section class="my-12">
+            <div class="flex justify-between items-center mb-8 pb-2 border-b border-primary-600/30 relative">
+                <h2 class="text-2xl font-orbitron font-semibold relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-10 after:h-[3px] after:bg-gradient-primary after:rounded-md hover:after:w-full after:transition-all after:duration-300">
+                    Games
+                </h2>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="px-4 py-2 border border-primary-600/50 rounded-lg text-white hover:text-primary-600 hover:border-primary-600 transition-all duration-300 text-sm">
+                        All
+                    </a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+                <!-- Game 1 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -20%
                     </div>
-                    <div class="p-6 flex-1">
-                        <h3 class="text-xl font-bold mb-2 game-title">Galactic Conquest</h3>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-500">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="text-gray-400 ml-2">4.5/5</span>
-                        </div>
-                        <p class="text-gray-300 mb-4">Explore the vast universe and build your own galactic empire in this epic strategy game.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold">$39.99</span>
-                            <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-                                Add to Cart
-                            </button>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/spodarmanob" alt="Spider-Man 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            5650 - 13400 BDT
                         </div>
                     </div>
                 </div>
-
-                <!-- Featured Game 2 -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden flex flex-col md:flex-row scroll-animation" style="animation-delay: 0.2s">
-                    <div class="md:w-2/5 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Featured Game 2" class="w-full h-48 md:h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
+                
+                <!-- Game 2 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/paalworld" alt="Palworld" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <div class="p-6 flex-1">
-                        <h3 class="text-xl font-bold mb-2 game-title">Shadow Assassin</h3>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-500">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 ml-2">5.0/5</span>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            999 BDT
                         </div>
-                        <p class="text-gray-300 mb-4">Become the ultimate assassin in this stealth action game set in a dark fantasy world.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold">$49.99</span>
-                            <button class="btn-primary bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-                                Add to Cart
-                            </button>
+                    </div>
+                </div>
+                
+                <!-- Game 3 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 left-3 z-10 bg-gradient-primary text-white text-xs font-medium px-2 py-1 rounded shadow-lg animate-pulse-custom">
+                        Sale!
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/EAFC25" alt="EA FC 24" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            1499 - 1499 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 4 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -40%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/SHADOWS" alt="Batman Arkham Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            799 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 5 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 left-3 z-10 bg-gradient-primary text-white text-xs font-medium px-2 py-1 rounded shadow-lg animate-pulse-custom">
+                        Sale!
+                    </div>
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -35%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/minecraft" alt="Assassin's Creed Shadows" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            5999 - 7350 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game 6 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/nnhhuu" alt="Minecraft" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            1399 - 2499 BDT
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Game Categories -->
-    <section class="py-16 bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-12 section-heading scroll-animation">Browse by Category</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="category-card bg-gray-700 rounded-lg p-6 text-center scroll-animation" style="animation-delay: 0.1s">
-                    <i class="fas fa-gamepad text-3xl mb-3 text-purple-500"></i>
-                    <h3 class="font-medium">Action</h3>
-                </div>
-                <div class="category-card bg-gray-700 rounded-lg p-6 text-center scroll-animation" style="animation-delay: 0.2s">
-                    <i class="fas fa-dragon text-3xl mb-3 text-purple-500"></i>
-                    <h3 class="font-medium">RPG</h3>
-                </div>
-                <div class="category-card bg-gray-700 rounded-lg p-6 text-center scroll-animation" style="animation-delay: 0.3s">
-                    <i class="fas fa-football-ball text-3xl mb-3 text-purple-500"></i>
-                    <h3 class="font-medium">Sports</h3>
-                </div>
-                <div class="category-card bg-gray-700 rounded-lg p-6 text-center scroll-animation" style="animation-delay: 0.4s">
-                    <i class="fas fa-car text-3xl mb-3 text-purple-500"></i>
-                    <h3 class="font-medium">Racing</h3>
-                </div>
-                <div class="category-card bg-gray-700 rounded-lg p-6 text-center scroll-animation" style="animation-delay: 0.5s">
-                    <i class="fas fa-chess text-3xl mb-3 text-purple-500"></i>
-                    <h3 class="font-medium">Strategy</h3>
-                </div>
-                <div class="category-card bg-gray-700 rounded-lg p-6 text-center scroll-animation" style="animation-delay: 0.6s">
-                    <i class="fas fa-ghost text-3xl mb-3 text-purple-500"></i>
-                    <h3 class="font-medium">Horror</h3>
+        </section>
+        
+        <!-- Software Section -->
+        <section class="my-12">
+            <div class="flex justify-between items-center mb-8 pb-2 border-b border-primary-600/30 relative">
+                <h2 class="text-2xl font-orbitron font-semibold relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-10 after:h-[3px] after:bg-gradient-primary after:rounded-md hover:after:w-full after:transition-all after:duration-300">
+                    Software
+                </h2>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="px-4 py-2 border border-primary-600/50 rounded-lg text-white hover:text-primary-600 hover:border-primary-600 transition-all duration-300 text-sm">
+                        All
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- About Us Section -->
-    <section id="about" class="py-16 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-12 section-heading scroll-animation">About Us</h2>
-            <div class="bg-gray-800 rounded-lg p-8 scroll-animation">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/3 mb-6 md:mb-0 md:pr-8">
-                        <div class="relative">
-                            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25"></div>
-                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="About GameVault" class="rounded-lg shadow-lg relative">
-                        </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+                <!-- Software 1 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -15%
                     </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-2xl font-bold mb-4">Welcome to GameVault</h3>
-                        <p class="text-gray-300 mb-4">
-                            GameVault is your premier destination for digital games and software. Founded in 2020, we've been dedicated to providing gamers with the best titles at competitive prices.
-                        </p>
-                        <p class="text-gray-300 mb-4">
-                            Our mission is to make gaming accessible to everyone. We offer a wide selection of games across all genres and platforms, from AAA blockbusters to indie gems.
-                        </p>
-                        <div class="flex flex-wrap gap-6 mt-8">
-                            <div class="flex items-center">
-                                <i class="fas fa-users text-purple-500 text-3xl mr-3"></i>
-                                <div>
-                                    <h4 class="font-bold text-2xl">10M+</h4>
-                                    <p class="text-gray-400 text-sm">Happy Customers</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-globe text-purple-500 text-3xl mr-3"></i>
-                                <div>
-                                    <h4 class="font-bold text-2xl">100+</h4>
-                                    <p class="text-gray-400 text-sm">Countries Served</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-gamepad text-purple-500 text-3xl mr-3"></i>
-                                <div>
-                                    <h4 class="font-bold text-2xl">5,000+</h4>
-                                    <p class="text-gray-400 text-sm">Games Available</p>
-                                </div>
-                            </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/proton%20bhai" alt="Proton VPN" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            1899 BDT
                         </div>
                     </div>
                 </div>
+                
+                <!-- Software 2 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/AAAAAAAAAABBBBBBBBBBBBBBCCCCCCCCCCCC" alt="McAfee" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            499 - 1500 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Software 3 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 left-3 z-10 bg-gradient-primary text-white text-xs font-medium px-2 py-1 rounded shadow-lg animate-pulse-custom">
+                        Sale!
+                    </div>
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -50%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/365gg" alt="Microsoft 365" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            2699 - 11999 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Software 4 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/dolby" alt="Dolby Atmos" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            499 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Software 5 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -20%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/hma" alt="HMA VPN" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            199 - 199 BDT
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="py-16 bg-gradient-to-r from-purple-800 to-purple-600">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center scroll-animation">
-                <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
-                <p class="text-purple-200 mb-8 max-w-2xl mx-auto">Subscribe to our newsletter to receive updates on new game releases, exclusive deals, and more!</p>
-                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-                    <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-900">
-                    <button type="submit" class="bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-md transition duration-300 btn-primary">
-                        Subscribe
-                    </button>
-                </form>
+        </section>
+        
+        <!-- Steam Wallet Section -->
+        <section class="my-12">
+            <div class="flex justify-between items-center mb-8 pb-2 border-b border-primary-600/30 relative">
+                <h2 class="text-2xl font-orbitron font-semibold relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-10 after:h-[3px] after:bg-gradient-primary after:rounded-md hover:after:w-full after:transition-all after:duration-300">
+                    Steam Wallet
+                </h2>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="px-4 py-2 border border-primary-600/50 rounded-lg text-white hover:text-primary-600 hover:border-primary-600 transition-all duration-300 text-sm">
+                        All
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+                <!-- Steam Wallet 1 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 left-3 z-10 bg-gradient-primary text-white text-xs font-medium px-2 py-1 rounded shadow-lg animate-pulse-custom">
+                        Sale!
+                    </div>
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -10%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/steamtopup" alt="Steam Global" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            2499 - 11999 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Steam Wallet 2 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -5%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/adfaf" alt="Steam Ukraine" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            275 - 7400 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Steam Wallet 3 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/Steam%20china" alt="Steam China" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            175 - 3000 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Steam Wallet 4 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 left-3 z-10 bg-gradient-primary text-white text-xs font-medium px-2 py-1 rounded shadow-lg animate-pulse-custom">
+                        Sale!
+                    </div>
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -25%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/vvbtt55" alt="Steam Global USD" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            175 - 13300 BDT
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Steam Wallet 5 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -15%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/adfa" alt="Steam India" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            150 - 8100 BDT
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- OTT Platforms Section -->
+        <section class="my-12">
+            <div class="flex justify-between items-center mb-8 pb-2 border-b border-primary-600/30 relative">
+                <h2 class="text-2xl font-orbitron font-semibold relative inline-block after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-10 after:h-[3px] after:bg-gradient-primary after:rounded-md hover:after:w-full after:transition-all after:duration-300">
+                    OTT Platforms
+                </h2>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="px-4 py-2 border border-primary-600/50 rounded-lg text-white hover:text-primary-600 hover:border-primary-600 transition-all duration-300 text-sm">
+                        All
+                    </a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+                <!-- OTT 1 -->
+                <div class="product-card bg-dark-100 rounded-xl overflow-hidden shadow-card border border-primary-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow hover:border-primary-600/30 relative group">
+                    <div class="absolute top-3 right-3 z-10 bg-gradient-secondary text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
+                        -20%
+                    </div>
+                    
+                    <div class="product-image-container overflow-hidden relative">
+                        <img src="https://ap-south-1.linodeobjects.com/arektacoinstore/nflix" alt="Netflix" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="font-semibold text-white relative inline-block pb-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 group-hover:after:w-full">
+                            250 - 11999 BDT
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div class="scroll-animation">
-                    <h3 class="text-xl font-bold mb-4">Game<span class="text-purple-500">Vault</span></h3>
-                    <p class="text-gray-400 mb-4">Your one-stop shop for digital games and software.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover:scale-110 transform inline-block">
+    <footer class="bg-dark-400 pt-16 pb-6 mt-16 border-t border-primary-600/20 relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-600 to-transparent"></div>
+        
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <div class="text-3xl font-bold font-orbitron bg-gradient-primary bg-clip-text text-transparent mb-4">Habibis Shop</div>
+                    <p class="text-gray-400 mb-6 leading-relaxed max-w-md">
+                        Habibis Shop specializes in offering digital goods for gamers. Our platform stands as the rapidly flourishing online hub for digital products. Your support is deeply appreciated, We Love You!
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary-600/10 border border-primary-600/20 flex items-center justify-center text-white hover:bg-gradient-primary hover:-translate-y-1 transition-all duration-300 hover:shadow-button">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover:scale-110 transform inline-block">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover:scale-110 transform inline-block">
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary-600/10 border border-primary-600/20 flex items-center justify-center text-white hover:bg-gradient-primary hover:-translate-y-1 transition-all duration-300 hover:shadow-button">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 hover:scale-110 transform inline-block">
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary-600/10 border border-primary-600/20 flex items-center justify-center text-white hover:bg-gradient-primary hover:-translate-y-1 transition-all duration-300 hover:shadow-button">
                             <i class="fab fa-discord"></i>
                         </a>
                     </div>
                 </div>
-                <div class="scroll-animation" style="animation-delay: 0.1s">
-                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Home</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Games</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Software</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Deals</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white footer-link">About Us</a></li>
+                
+                <div>
+                    <h3 class="text-lg font-orbitron font-semibold mb-6 relative inline-block pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 hover:after:w-full">
+                        MY ACCOUNT
+                    </h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-primary-600 transition-all duration-300 hover:translate-x-1 inline-block pl-4 relative before:content-['→'] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:text-primary-600 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300">
+                                Cart
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-primary-600 transition-all duration-300 hover:translate-x-1 inline-block pl-4 relative before:content-['→'] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:text-primary-600 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300">
+                                Order History
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-primary-600 transition-all duration-300 hover:translate-x-1 inline-block pl-4 relative before:content-['→'] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:text-primary-600 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300">
+                                Verify Email
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="scroll-animation" style="animation-delay: 0.2s">
-                    <h4 class="text-lg font-bold mb-4">Support</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Contact Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Shipping</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Returns</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white footer-link">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="scroll-animation" style="animation-delay: 0.3s">
-                    <h4 class="text-lg font-bold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-2 text-purple-500"></i>
-                            <span>123 Gaming Street, Digital City, DC 12345</span>
+                
+                <div>
+                    <h3 class="text-lg font-orbitron font-semibold mb-6 relative inline-block pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-0.5 after:bg-gradient-primary after:transition-all after:duration-300 hover:after:w-full">
+                        SUPPORT
+                    </h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-primary-600 transition-all duration-300 hover:translate-x-1 inline-block pl-4 relative before:content-['→'] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:text-primary-600 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300">
+                                Review Us
+                            </a>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone-alt mr-2 text-purple-500"></i>
-                            <span>+1 (555) 123-4567</span>
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-primary-600 transition-all duration-300 hover:translate-x-1 inline-block pl-4 relative before:content-['→'] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:text-primary-600 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300">
+                                Contact Us
+                            </a>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-2 text-purple-500"></i>
-                            <span>support@gamevault.com</span>
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-primary-600 transition-all duration-300 hover:translate-x-1 inline-block pl-4 relative before:content-['→'] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:text-primary-600 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300">
+                                Refund Policy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-400 hover:text-primary-600 transition-all duration-300 hover:translate-x-1 inline-block pl-4 relative before:content-['→'] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:text-primary-600 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300">
+                                Game Delivery
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 GameVault. All rights reserved.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white text-sm footer-link">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm footer-link">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm footer-link">Cookie Policy</a>
-                </div>
+            
+            <div class="mt-12 pt-6 border-t border-primary-600/10 text-center text-gray-400 text-sm">
+                <p>© 2025 Habibis Shop | Developed by Hridoy</p>
             </div>
         </div>
     </footer>
 
     <script>
         // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            
-            if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target) && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-            }
-        });
-
-        // Create animated particles for hero section
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('span');
-                particle.classList.add('particle');
-                
-                // Random position
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                particle.style.left = `${posX}%`;
-                particle.style.top = `${posY}%`;
-                
-                // Random size
-                const size = Math.random() * 5 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Random opacity
-                particle.style.opacity = Math.random() * 0.5 + 0.3;
-                
-                // Random animation delay
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
         
-        // Parallax effect for hero background
-        function parallaxEffect() {
-            const heroSection = document.querySelector('.hero-section');
-            const heroBg = document.querySelector('.hero-bg');
-            
-            window.addEventListener('scroll', function() {
-                const scrollPosition = window.pageYOffset;
-                const sectionTop = heroSection.offsetTop;
-                const sectionHeight = heroSection.offsetHeight;
-                
-                if (scrollPosition >= sectionTop && scrollPosition <= sectionTop + sectionHeight) {
-                    const yPos = (scrollPosition - sectionTop) * 0.4;
-                    heroBg.style.transform = `scale(1.1) translateY(${yPos}px)`;
-                }
-            });
-        }
-        
-        // Scroll animations
-        function handleScrollAnimations() {
-            const elements = document.querySelectorAll('.scroll-animation');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            elements.forEach(element => {
-                observer.observe(element);
-            });
-        }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            parallaxEffect();
-            handleScrollAnimations();
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 </body>
